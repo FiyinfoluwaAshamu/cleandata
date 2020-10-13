@@ -1,65 +1,35 @@
 ---
 title: "Codebook"
-output:
-  html_document:
-    toc: true
-    toc_depth: 4
-    toc_float: true
-    code_folding: 'hide'
-    self_contained: true
-  pdf_document:
-    toc: yes
-    toc_depth: 4
-    latex_engine: xelatex
----
-
-Here, we're just setting a few options.
-
-```{r setup}
-knitr::opts_chunk$set(
-  warning = TRUE, # show warnings during codebook generation
-  message = TRUE, # show messages during codebook generation
-  error = TRUE, # do not interrupt codebook generation in case of errors,
-                # usually better for debugging
-  echo = TRUE  # show R code
-)
-ggplot2::theme_set(ggplot2::theme_bw())
-
-```
-
-Now, we're preparing our data for the codebook.
-
-```{r prepare_codebook}
-library(codebook)
-codebook_data <- codebook::bfi
-# to import an SPSS file from the same folder uncomment and edit the line below
-# codebook_data <- rio::import("mydata.sav")
-# for Stata
-# codebook_data <- rio::import("mydata.dta")
-# for CSV
-# codebook_data <- rio::import("mydata.csv")
-
-# omit the following lines, if your missing values are already properly labelled
-codebook_data <- detect_missing(codebook_data,
-    only_labelled = TRUE, # only labelled values are autodetected as
-                                   # missing
-    negative_values_are_missing = FALSE, # negative values are missing values
-    ninety_nine_problems = TRUE,   # 99/999 are missing values, if they
-                                   # are more than 5 MAD from the median
-    )
-
-# If you are not using formr, the codebook package needs to guess which items
-# form a scale. The following line finds item aggregates with names like this:
-# scale = scale_1 + scale_2R + scale_3R
-# identifying these aggregates allows the codebook function to
-# automatically compute reliabilities.
-# However, it will not reverse items automatically.
-codebook_data <- detect_scales(codebook_data)
-```
 
 
-Create codebook
+A codebook with the data to indicate all the variables and summaries calculated, along with units, and any other relevant information.
 
-```{r codebook}
-codebook(codebook_data)
-```
+#The data source#
+
+1. Data description - http://archive.ics.uci.edu/ml/datasets/Human+Activity+Recognition+Using+Smartphones
+
+2. Original data - https://d396qusza40orc.cloudfront.net/getdata%2Fprojectfiles%2FUCI%20HAR%20Dataset.zip
+
+#Data Set Information:#
+
+The experiments have been carried out with a group of 30 volunteers within an age bracket of 19-48 years. Each person performed six activities (WALKING, WALKING_UPSTAIRS, WALKING_DOWNSTAIRS, SITTING, STANDING, LAYING) wearing a smartphone (Samsung Galaxy S II) on the waist. Using its embedded accelerometer and gyroscope, we captured 3-axial linear acceleration and 3-axial angular velocity at a constant rate of 50Hz. The experiments have been video-recorded to label the data manually. The obtained dataset has been randomly partitioned into two sets, where 70% of the volunteers was selected for generating the training data and 30% the test data.
+
+The sensor signals (accelerometer and gyroscope) were pre-processed by applying noise filters and then sampled in fixed-width sliding windows of 2.56 sec and 50% overlap (128 readings/window). The sensor acceleration signal, which has gravitational and body motion components, was separated using a Butterworth low-pass filter into body acceleration and gravity. The gravitational force is assumed to have only low frequency components, therefore a filter with 0.3 Hz cutoff frequency was used. From each window, a vector of features was obtained by calculating variables from the time and frequency domain.
+
+
+The dataset includes:
+  
+ 1. activity_labels.txt - links the class labels with their activity names
+ 2. features.txt - List of all features.
+ 3. features_info.txt
+ 4. y_train.txt - training labels
+ 5. x_train.txt - training set
+ 6. subject_train.txt
+ 7. y_test.txt - training labels
+ 8. x_test.txt - training set
+ 9. subject_test.txt
+ 10.README.txt
+
+
+Check the README file for further details 
+
